@@ -1,0 +1,14 @@
+{
+  "todo": [
+    {
+      "id": 1774981995444,
+      "title": "Test task",
+      "description": "Testing",
+      "priority": "high",
+      "dueDate": "2026-04-10",
+      "column": "todo"
+    }
+  ],
+  "inprogress": [],
+  "done": []
+}
