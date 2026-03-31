@@ -35,11 +35,15 @@ function renderTasks(data){
                 <p>Due: ${task.dueDate}</p>
             `;
             card.classList.add('card');
+            card.draggable=true;
+            card.dataset.id = task.id;
+            card.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('taskId', task.id);
+            })
             container.appendChild(card);
         }
     }
 }
-
 
 addBtn.addEventListener('click', () => {
     modalOverlay.style.display = 'flex';
@@ -53,9 +57,27 @@ taskForm.addEventListener('submit', async (event) => {
     await loadTasks();
 });
 
-
 cancelBtn.addEventListener('click', () => {
     modalOverlay.style.display = 'none';
 });
 
+['todo', 'inprogress', 'done'].forEach(column => {
+    const container = document.querySelector(`#${column} .cards-container`);
+    container.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    });
+    container.addEventListener('drop', async (event) => {
+        const taskId = event.dataTransfer.getData('taskId');
+        await fetch(`/tasks/${taskId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({column: column})
+        });
+        await loadTasks();
+    });
+});
+
+
 loadTasks();
+
+

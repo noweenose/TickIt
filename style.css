@@ -57,6 +57,8 @@ main {
 
 
 #todo, #inprogress, #done {
+    display:flex;
+    flex-direction: column;
     flex: 1;
     background-color: #e0e0e0;
     border-radius: 10px;
@@ -166,4 +168,9 @@ main {
     background-color: #1a7bbf;
     cursor: pointer;
 }
+
+.cards-container {
+    flex: 1;
+}
+
 
