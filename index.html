@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TickIt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>TickIt</h1>
+        <input type="text" id="taskInput" placeholder="Enter task title!">
+        <button id="addBtn">Add</button>
+    </header>
+    <main>
+        <div id="todo">
+            <div class="column-header">
+                <h2>To do</h2>
+                <button class="menu-btn">...</button>
+            </div>
+            <div class="cards-container"></div>
+        </div>
+        <div id="inprogress">
+            <div class="column-header">
+                <h2>In Progress</h2>
+                <button class="menu-btn">...</button>
+            </div>
+            <div class="cards-container"></div>
+        </div>
+        <div id="done">
+            <div class="column-header">
+                <h2>Done</h2>
+                <button class="menu-btn">...</button>
+            </div>
+            <div class="cards-container"></div>
+        </div>
+    </main>
+<script src="script.js"></script>
+</body>
+</html>
