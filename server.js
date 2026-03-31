@@ -58,7 +58,7 @@ app.put('/tasks/:id', (req,res) => {
     if (!foundTask){
         return res.status(404).json({message : 'Task not found'});
     }
-    if (req.body.column != foundColumn){
+    if (req.body.column && req.body.column !== foundColumn){
         data[foundColumn] = data[foundColumn].filter(t => t.id !== id);
         data[req.body.column].push(foundTask);
         foundColumn = req.body.column;

@@ -2,7 +2,7 @@ const addBtn = document.getElementById('addBtn');
 const modalOverlay = document.getElementById('modal-overlay');
 const cancelBtn = document.getElementById('cancelBtn');
 const taskForm = document.getElementById('taskForm');
-
+let editingTaskId = null;
 
 async function loadTasks() {
     const response = await fetch('/tasks');
@@ -28,34 +28,82 @@ function renderTasks(data){
         container.innerHTML = '';
         for(const task of data[column]){
             const card = document.createElement('div');
+
+
             card.innerHTML = `
-                <h3>${task.title}</h3>
+                <div class="card-header">
+                    <h3>${task.title}</h3>
+                    <div class="card-menu-wrapper">
+                        <button class="card-menu-btn">...</button>
+                            <div class="card-dropdown hidden">
+                            <button class="delete-btn">Delete</button>
+                            <button class="edit-btn">Edit</button>
+                            </div>
+                        </div>
+                    </div>
                 <p>${task.description}</p>
                 <p>Priority: ${task.priority}</p>
-                <p>Due: ${task.dueDate}</p>
+                <p>Due: ${task.dueDate}</p>            
             `;
+
+
             card.classList.add('card');
             card.draggable=true;
             card.dataset.id = task.id;
             card.addEventListener('dragstart', (event) => {
                 event.dataTransfer.setData('taskId', task.id);
             })
+            card.querySelector('.delete-btn').addEventListener('click', async () => {
+                await fetch(`/tasks/${task.id}`, {
+                    method: 'DELETE'
+                });
+                await loadTasks();
+            });
+            card.querySelector('.edit-btn').addEventListener('click', () => {
+                editingTaskId = task.id;
+                document.getElementById('titleInput').value = task.title;
+                document.getElementById('descInput').value = task.description;
+                document.getElementById('priorityInput').value = task.priority;
+                document.getElementById('dueDateInput').value = task.dueDate;
+                modalOverlay.style.display = 'flex';
+            });
+
             container.appendChild(card);
         }
     }
 }
 
 addBtn.addEventListener('click', () => {
+    const quickTitle = document.getElementById('taskInput').value;
+    document.getElementById('titleInput').value = quickTitle;
     modalOverlay.style.display = 'flex';
 });
 
 taskForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    await addTask();
+    if (editingTaskId) {
+        await editTask();
+    } else {
+        await addTask();
+    }
+    editingTaskId = null;
     modalOverlay.style.display = 'none';
     taskForm.reset();
+    document.getElementById('taskInput').value = '';
     await loadTasks();
 });
+
+async function editTask() {
+    const title = document.getElementById('titleInput').value;
+    const description = document.getElementById('descInput').value;
+    const priority = document.getElementById('priorityInput').value;
+    const dueDate = document.getElementById('dueDateInput').value;
+    await fetch(`/tasks/${editingTaskId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description, priority, dueDate })
+    });
+}
 
 cancelBtn.addEventListener('click', () => {
     modalOverlay.style.display = 'none';

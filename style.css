@@ -19,20 +19,24 @@ header {
 }
 
 header h1{
-    margin-right: 30px;
+    margin-left: 60px;
 }
 
 #taskInput {
-    flex: 1;
+    width:600px;
+    flex: none;  
+    margin-left: auto;  
     padding: 10px 20px;
     border: none;
-    border-radius: 20px 0 0 20px;  
+    border-radius: 20px 0 0 20px;
     outline: none;
     background-color: #e0e0e0;
 }
 
+
 #addBtn {
-    padding: 10px 20px;
+    margin-right: 200px;
+    padding: 10px 40px;
     background-color: #2195DD;
     border-radius: 0 20px 20px 0;
     color: white;
@@ -87,6 +91,50 @@ main {
     margin-bottom: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.card-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #55554f;
+}
+
+.cards-container {
+    flex: 1;
+}
+
+.card-dropdown {
+    gap: 5px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 0;
+    z-index: 10;
+    display: none;
+    flex-direction: column;
+    min-width: 100px;
+}
+
+.hidden {
+    display: none;
+}
+
+.card-menu-wrapper {
+    position: relative;
+}
+
+
 
 #taskForm {
     display: flex;
@@ -169,8 +217,35 @@ main {
     cursor: pointer;
 }
 
-.cards-container {
-    flex: 1;
+.card-menu-wrapper:hover .card-dropdown {
+    display: flex;
 }
 
+.delete-btn{
+    padding: 10px 20px;
+    background-color: #1e2224;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer
+}
+
+.edit-btn{
+    padding: 10px 20px;
+    background-color: #1e2224;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer
+}
+
+.delete-btn:hover {
+    background-color: #63686b;
+    cursor: pointer;
+}
+
+.edit-btn:hover{
+    background-color: #63686b;
+    cursor: pointer;
+}
 
