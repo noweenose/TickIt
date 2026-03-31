@@ -40,6 +40,11 @@ header h1{
     cursor: pointer
 }
 
+#addBtn:hover {
+    background-color: #1a7bbf;
+    cursor: pointer;
+}
+
 main {
     display: flex;
     margin: 20px;
@@ -72,3 +77,93 @@ main {
     cursor: pointer;
     font-size: 18px;
 }
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#taskForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#modal input, #modal textarea, #modal select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+#modal textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#modal h2 {
+    margin-bottom: 8px;
+}
+
+#modal .btn-group {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+
+#modal [type="submit"] {
+    padding: 10px 20px;
+    background-color: #2195DD;
+    border-radius: 20px;
+    color: white;
+    border: none;
+    cursor: pointer
+}
+
+#cancelBtn {
+    padding: 10px 20px;
+    background-color: #2195DD;
+    border-radius: 20px;
+    color: white;
+    border: none;
+    cursor: pointer
+}
+
+#modal [type="submit"]:hover {
+    background-color: #1a7bbf;
+    cursor: pointer;
+}
+
+#cancelBtn:hover {
+    background-color: #1a7bbf;
+    cursor: pointer;
+}
+

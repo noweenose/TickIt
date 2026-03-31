@@ -36,6 +36,27 @@
             <div class="cards-container"></div>
         </div>
     </main>
+
+    <div id="modal-overlay">
+        <div id="modal">
+            <h2>Add Task</h2>
+            <form id="taskForm">
+                <input type="text" id="titleInput" placeholder="Title" required>
+                <textarea id="descInput" placeholder="Description"></textarea>
+                <select id="priorityInput">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <input type="date" id="dueDateInput">
+                <div class="btn-group">
+                    <button type="submit">Add Task</button>
+                    <button type="button" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 <script src="script.js"></script>
 </body>
 </html>
