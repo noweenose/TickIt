@@ -116,9 +116,9 @@ main {
     position: absolute;
     right: 0;
     top: 100%;
-    background-color: transparent;
-    border-radius: 8px;
-    box-shadow: none;
+    background-color: white;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     padding: 0;
     z-index: 10;
     display: none;
@@ -126,14 +126,35 @@ main {
     min-width: 100px;
 }
 
-.hidden {
-    display: none;
-}
-
 .card-menu-wrapper {
     position: relative;
 }
 
+.card-menu-wrapper:hover .card-dropdown {
+    display: flex !important;
+}
+
+.card-dropdown button {
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 4px;
+    color: #333;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: #fff0f0;
+    color: #e53935;
+}
+
+.edit-btn:hover {
+    background-color: #f0f7ff;
+    color: #2195DD;
+}
 
 
 #taskForm {
@@ -217,52 +238,45 @@ main {
     cursor: pointer;
 }
 
-.card-menu-wrapper:hover .card-dropdown {
-    display: flex;
-}
-
-.delete-btn{
-    padding: 10px 20px;
-    background-color: #1e2224;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    cursor: pointer
-}
-
-.edit-btn{
-    padding: 10px 20px;
-    background-color: #1e2224;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    cursor: pointer
-}
-
-.delete-btn:hover {
-    background-color: #63686b;
-    cursor: pointer;
-}
-
-.edit-btn:hover{
-    background-color: #63686b;
-    cursor: pointer;
-}
-
 .column-menu-wrapper {
     position: relative;
 }
 
 .column-dropdown {
+    display:flex;
+    gap:8px;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     right: 0;
     top: 100%;
-    background-color: white;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    padding: 4px;
+    padding: 6px;
     z-index: 10;
     min-width: 120px;
+    min-height: 60px;
 }
 
+.column-dropdown button {
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 4px;
+    color: black;
+}
+
+.column-dropdown button:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+.hidden {
+    display: none !important;
+}
 

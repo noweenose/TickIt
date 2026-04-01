@@ -23,6 +23,8 @@ async function addTask(){
 }
 
 function renderTasks(data){
+    const priorityColor = { low: 'green', medium: 'orange', high: 'red' };
+
     for (const column in data){ 
         const container = document.querySelector(`#${column} .cards-container`)
         container.innerHTML = '';
@@ -36,14 +38,15 @@ function renderTasks(data){
                     <div class="card-menu-wrapper">
                         <button class="card-menu-btn">...</button>
                             <div class="card-dropdown hidden">
-                            <button class="delete-btn">Delete</button>
-                            <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                                <button class="edit-btn">Edit</button>
                             </div>
                         </div>
                     </div>
                 <p>${task.description}</p>
-                <p>Priority: ${task.priority}</p>
-                <p>Due: ${task.dueDate}</p>            
+                <p style="color: ${priorityColor[task.priority]}">Priority: ${task.priority}</p>   
+                <p>Due: ${task.dueDate || 'No date'}</p>         
+
             `;
 
 
@@ -114,6 +117,8 @@ cancelBtn.addEventListener('click', () => {
     const menuBtn = document.querySelector(`#${column} .menu-btn`);
     const dropdown = document.querySelector(`#${column} .column-dropdown`);
     const clearBtn = document.querySelector(`#${column} .clear-btn`);
+    const addToColumnBtn = document.querySelector(`#${column} .add-to-column-btn`);
+
 
     container.addEventListener('dragover', (event) => {
         event.preventDefault();
@@ -122,6 +127,11 @@ cancelBtn.addEventListener('click', () => {
         dropdown.classList.toggle('hidden');
 
     });    
+    addToColumnBtn.addEventListener('click', () => {
+        modalOverlay.style.display = 'flex';
+        dropdown.classList.add('hidden');
+    });
+
     container.addEventListener('drop', async (event) => {
         const taskId = event.dataTransfer.getData('taskId');
         await fetch(`/tasks/${taskId}`, {
@@ -131,15 +141,16 @@ cancelBtn.addEventListener('click', () => {
         });
         await loadTasks();
     });
+
     clearBtn.addEventListener('click', async () => {
-    const response = await fetch('/tasks');
-    const data = await response.json();
-    for (const task of data[column]) {
-        await fetch(`/tasks/${task.id}`, { method: 'DELETE' });
-    }
-    dropdown.classList.toggle('hidden');
-    await loadTasks();
-});
+        const response = await fetch('/tasks');
+        const data = await response.json();
+        for (const task of data[column]) {
+            await fetch(`/tasks/${task.id}`, { method: 'DELETE' });
+        }
+        dropdown.classList.toggle('hidden');
+        await loadTasks();
+    });
 });
 
 document.addEventListener('click', (event) => {
