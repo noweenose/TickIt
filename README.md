@@ -5,12 +5,18 @@ A task management application!
 It a task management app where you can track your tasks and organize them in columns!
 
 # Features
-- Create tasks with description,priority and due date!
-- Drag and drop tasks between columns!
+- Create tasks with description,priority and due date
+- Drag and drop tasks between columns
 - Edit or delete individual tasks
 - Clear all tasks in a column
 - Add tasks directly from the column menu
 - Data persists after page refresh!
+- Dark mode with toggle switch
+- Overdue task warnings
+- Priority badges
+- Empty state messages
+- Drag visual feedback
+- Card animations
 
 # Prerequisites
 - Node.js (v14 or higher)
@@ -40,4 +46,4 @@ http://localhost:3000
 # Tech Stack
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express
-- **Storage** JSON file
+- **Storage:** JSON file
