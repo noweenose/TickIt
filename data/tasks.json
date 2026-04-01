@@ -1,14 +1,14 @@
 {
-  "todo": [],
-  "inprogress": [
+  "todo": [
     {
-      "id": 1775012519753,
-      "title": "asdf",
-      "description": "asdf",
+      "id": 1775014163899,
+      "title": "Finish my project!",
+      "description": "Add some stuff",
       "priority": "medium",
-      "dueDate": "",
-      "column": "inprogress"
+      "dueDate": "2026-04-28",
+      "column": "todo"
     }
   ],
+  "inprogress": [],
   "done": []
 }

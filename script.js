@@ -64,6 +64,8 @@ function renderTasks(data){
             });
             card.querySelector('.edit-btn').addEventListener('click', () => {
                 editingTaskId = task.id;
+                document.querySelector('#modal h2').textContent = 'Edit Task';
+                document.querySelector('#modal [type="submit"]').textContent = 'Save Changes';
                 document.getElementById('titleInput').value = task.title;
                 document.getElementById('descInput').value = task.description;
                 document.getElementById('priorityInput').value = task.priority;
@@ -78,7 +80,9 @@ function renderTasks(data){
 
 addBtn.addEventListener('click', () => {
     const quickTitle = document.getElementById('taskInput').value;
+    document.querySelector('#modal h2').textContent = 'Add Task';
     document.getElementById('titleInput').value = quickTitle;
+    document.querySelector('#modal [type="submit"]').textContent = 'Add Task';
     modalOverlay.style.display = 'flex';
 });
 
