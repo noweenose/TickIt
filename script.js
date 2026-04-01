@@ -2,6 +2,7 @@ const addBtn = document.getElementById('addBtn');
 const modalOverlay = document.getElementById('modal-overlay');
 const cancelBtn = document.getElementById('cancelBtn');
 const taskForm = document.getElementById('taskForm');
+const themeBtn = document.getElementById('themeBtn');
 let targetColumn = 'todo';
 let editingTaskId = null;
 let draggedTaskId = null;
@@ -25,7 +26,6 @@ async function addTask(){
 }
 
 function renderTasks(data){
-    const priorityColor = { low: 'green', medium: 'orange', high: 'red' };
     const columnTitles = { todo: 'To do', inprogress: 'In Progress', done: 'Done' };
     for (const column in data){ 
         const container = document.querySelector(`#${column} .cards-container`)
@@ -37,11 +37,11 @@ function renderTasks(data){
         empty.classList.add('empty-state');
         container.appendChild(empty);
         }
-        
         const count = data[column].length;
         document.querySelector(`#${column} h2`).textContent = `${columnTitles[column]} (${count})`; 
         for(const task of data[column]){
             const card = document.createElement('div');
+            const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
             card.innerHTML = `
                 <div class="card-header">
                     <h3>${task.title}</h3>
@@ -54,17 +54,29 @@ function renderTasks(data){
                         </div>
                     </div>
                 <p>${task.description}</p>
-                <p style="color: ${priorityColor[task.priority]}">Priority: ${task.priority}</p>   
-                <p>Due: ${task.dueDate || 'No date'}</p>         
-
+                <span class="badge badge-${task.priority}">${task.priority}</span> 
+                <p>Due: <span style="color: ${isOverdue ? 'red' : 'inherit'}">${task.dueDate || 'No date'}</span> ${isOverdue ? '<span class="badge" style="background-color:#ffebee; color:red">Overdue</span>' : ''}</p> 
             `;
+            if (task.dueDate) {
+                const today = new Date();
+                const due = new Date(task.dueDate);
+                if (due < today) {
+                    card.classList.add('overdue');
+                }
+            }
             card.classList.add('card');
             card.draggable=true;
             card.dataset.id = task.id;
+            //dragging
             card.addEventListener('dragstart', (event) => {
                 draggedTaskId = task.id;
-               // event.dataTransfer.setData('taskId', task.id);
+                card.classList.add('dragging');
+                event.dataTransfer.setDragImage(card, 20, 20);
             })
+            card.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+            });
+
             card.querySelector('.delete-btn').addEventListener('click', async () => {
                 await fetch(`/tasks/${task.id}`, {
                     method: 'DELETE'
@@ -133,29 +145,15 @@ cancelBtn.addEventListener('click', () => {
     const clearBtn = document.querySelector(`#${column} .clear-btn`);
     const addToColumnBtn = document.querySelector(`#${column} .add-to-column-btn`);
 
-
-    container.addEventListener('dragover', (event) => {
-        event.preventDefault();
-    });
     menuBtn.addEventListener('click', () => {
         dropdown.classList.toggle('hidden');
 
-    });    
+    });  
+
     addToColumnBtn.addEventListener('click', () => {
         targetColumn = column;
         modalOverlay.style.display = 'flex';
         dropdown.classList.add('hidden');
-    });
-
-    container.addEventListener('drop', async (event) => {
-       // const taskId = event.dataTransfer.getData('taskId');
-        const taskId = draggedTaskId;
-        await fetch(`/tasks/${taskId}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({column: column})
-        });
-        await loadTasks();
     });
 
     clearBtn.addEventListener('click', async () => {
@@ -167,6 +165,38 @@ cancelBtn.addEventListener('click', () => {
         dropdown.classList.toggle('hidden');
         await loadTasks();
     });
+
+    container.addEventListener('dragenter', () => {
+        container.classList.add('drag-over');
+    });
+
+    container.addEventListener('dragleave', (event) => {
+    if (!container.contains(event.relatedTarget)) {
+            container.classList.remove('drag-over');
+        }
+    });
+
+     container.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    });  
+
+    container.addEventListener('drop', async (event) => {
+       // const taskId = event.dataTransfer.getData('taskId');
+        const taskId = draggedTaskId;
+        container.classList.remove('drag-over');
+        await fetch(`/tasks/${taskId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({column: column})
+        });
+        await loadTasks();
+    });
+
+});
+
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
 });
 
 document.addEventListener('click', (event) => {
