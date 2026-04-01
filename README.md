@@ -19,7 +19,8 @@ It a task management app where you can track your tasks and organize them in col
 - Card animations
 
 # Prerequisites
-- Node.js (v14 or higher)
+- Node.js (v14 or higher) — download from https://nodejs.org
+- npm (comes bundled with Node.js)
 
 # How to run locally
 1. Clone the repository
