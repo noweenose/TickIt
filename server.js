@@ -15,7 +15,7 @@ function readTasks() {
     return JSON.parse(fs.readFileSync(TASKS_FILE, 'utf-8'));
 }
 
-function writeTasks(data){
+    function writeTasks(data){
     fs.writeFileSync(TASKS_FILE,JSON.stringify(data,null,2));
 }
 

@@ -1,14 +1,5 @@
 {
-  "todo": [
-    {
-      "id": 1774992602611,
-      "title": "Yehey",
-      "description": "nows",
-      "priority": "medium",
-      "dueDate": "2026-04-24",
-      "column": "todo"
-    }
-  ],
+  "todo": [],
   "inprogress": [],
   "done": []
 }

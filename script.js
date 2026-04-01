@@ -111,9 +111,17 @@ cancelBtn.addEventListener('click', () => {
 
 ['todo', 'inprogress', 'done'].forEach(column => {
     const container = document.querySelector(`#${column} .cards-container`);
+    const menuBtn = document.querySelector(`#${column} .menu-btn`);
+    const dropdown = document.querySelector(`#${column} .column-dropdown`);
+    const clearBtn = document.querySelector(`#${column} .clear-btn`);
+
     container.addEventListener('dragover', (event) => {
         event.preventDefault();
     });
+    menuBtn.addEventListener('click', () => {
+        dropdown.classList.toggle('hidden');
+
+    });    
     container.addEventListener('drop', async (event) => {
         const taskId = event.dataTransfer.getData('taskId');
         await fetch(`/tasks/${taskId}`, {
@@ -123,8 +131,24 @@ cancelBtn.addEventListener('click', () => {
         });
         await loadTasks();
     });
+    clearBtn.addEventListener('click', async () => {
+    const response = await fetch('/tasks');
+    const data = await response.json();
+    for (const task of data[column]) {
+        await fetch(`/tasks/${task.id}`, { method: 'DELETE' });
+    }
+    dropdown.classList.toggle('hidden');
+    await loadTasks();
+});
 });
 
+document.addEventListener('click', (event) => {
+    document.querySelectorAll('.column-dropdown').forEach(dropdown => {
+        if (!dropdown.closest('.column-menu-wrapper').contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+});
 
 loadTasks();
 
