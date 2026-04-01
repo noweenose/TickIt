@@ -274,7 +274,13 @@ main {
     background-color: #f0f0f0;
 }
 
-
+.empty-state {
+    color: #aaa;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    pointer-events: none;
+}
 
 .hidden {
     display: none !important;

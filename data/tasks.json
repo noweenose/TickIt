@@ -1,14 +1,48 @@
 {
   "todo": [
     {
+      "id": 1775015604840,
+      "title": "asdf",
+      "description": "sadf",
+      "priority": "low",
+      "dueDate": "",
+      "column": "todo"
+    }
+  ],
+  "inprogress": [
+    {
+      "id": 1775015599029,
+      "title": "sadf",
+      "description": "asdf",
+      "priority": "low",
+      "dueDate": "",
+      "column": "inprogress"
+    }
+  ],
+  "done": [
+    {
       "id": 1775014163899,
       "title": "Finish my project!",
       "description": "Add some stuff",
       "priority": "medium",
       "dueDate": "2026-04-28",
-      "column": "todo"
+      "column": "done"
+    },
+    {
+      "id": 1775015361661,
+      "title": "asdf",
+      "description": "asdf",
+      "priority": "low",
+      "dueDate": "",
+      "column": "done"
+    },
+    {
+      "id": 1775015366338,
+      "title": "asdf",
+      "description": "asdfasdf",
+      "priority": "low",
+      "dueDate": "",
+      "column": "done"
     }
-  ],
-  "inprogress": [],
-  "done": []
+  ]
 }

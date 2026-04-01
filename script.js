@@ -3,6 +3,7 @@ const modalOverlay = document.getElementById('modal-overlay');
 const cancelBtn = document.getElementById('cancelBtn');
 const taskForm = document.getElementById('taskForm');
 let editingTaskId = null;
+let draggedTaskId = null;
 
 async function loadTasks() {
     const response = await fetch('/tasks');
@@ -18,20 +19,28 @@ async function addTask(){
     await fetch('/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({title, description, priority, dueDate, column: 'todo'})
+        body: JSON.stringify({title, description, priority, dueDate, column: column})
     });
 }
 
 function renderTasks(data){
     const priorityColor = { low: 'green', medium: 'orange', high: 'red' };
-
+    const columnTitles = { todo: 'To do', inprogress: 'In Progress', done: 'Done' };
     for (const column in data){ 
         const container = document.querySelector(`#${column} .cards-container`)
         container.innerHTML = '';
+
+        if (data[column].length === 0) {
+        const empty = document.createElement('p');
+        empty.textContent = 'No tasks yet';
+        empty.classList.add('empty-state');
+        container.appendChild(empty);
+        }
+        
+        const count = data[column].length;
+        document.querySelector(`#${column} h2`).textContent = `${columnTitles[column]} (${count})`; 
         for(const task of data[column]){
             const card = document.createElement('div');
-
-
             card.innerHTML = `
                 <div class="card-header">
                     <h3>${task.title}</h3>
@@ -48,13 +57,12 @@ function renderTasks(data){
                 <p>Due: ${task.dueDate || 'No date'}</p>         
 
             `;
-
-
             card.classList.add('card');
             card.draggable=true;
             card.dataset.id = task.id;
             card.addEventListener('dragstart', (event) => {
-                event.dataTransfer.setData('taskId', task.id);
+                draggedTaskId = task.id;
+               // event.dataTransfer.setData('taskId', task.id);
             })
             card.querySelector('.delete-btn').addEventListener('click', async () => {
                 await fetch(`/tasks/${task.id}`, {
@@ -137,7 +145,8 @@ cancelBtn.addEventListener('click', () => {
     });
 
     container.addEventListener('drop', async (event) => {
-        const taskId = event.dataTransfer.getData('taskId');
+       // const taskId = event.dataTransfer.getData('taskId');
+        const taskId = draggedTaskId;
         await fetch(`/tasks/${taskId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
