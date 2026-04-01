@@ -9,19 +9,19 @@
       "column": "todo"
     },
     {
-      "id": 1775016410525,
-      "title": "asdf",
-      "description": "ASDASDASDASDSADASDASD",
-      "priority": "medium",
-      "dueDate": "2026-03-29",
-      "column": "todo"
-    },
-    {
       "id": 1775016404583,
       "title": "asdf",
       "description": "asdf",
       "priority": "low",
       "dueDate": "",
+      "column": "todo"
+    },
+    {
+      "id": 1775016410525,
+      "title": "asdf",
+      "description": "ASDASDASDASDSADASDASD",
+      "priority": "medium",
+      "dueDate": "2026-03-29",
       "column": "todo"
     }
   ],

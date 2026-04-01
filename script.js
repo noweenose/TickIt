@@ -196,8 +196,10 @@ cancelBtn.addEventListener('click', () => {
 
 themeBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
-    themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
+
 
 document.addEventListener('click', (event) => {
     document.querySelectorAll('.column-dropdown').forEach(dropdown => {
@@ -206,6 +208,11 @@ document.addEventListener('click', (event) => {
         }
     });
 });
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+}
 
 loadTasks();
 
