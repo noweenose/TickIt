@@ -2,6 +2,7 @@ const addBtn = document.getElementById('addBtn');
 const modalOverlay = document.getElementById('modal-overlay');
 const cancelBtn = document.getElementById('cancelBtn');
 const taskForm = document.getElementById('taskForm');
+let targetColumn = 'todo';
 let editingTaskId = null;
 
 async function loadTasks() {
@@ -18,7 +19,7 @@ async function addTask(){
     await fetch('/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({title, description, priority, dueDate, column: 'todo'})
+        body: JSON.stringify({title, description, priority, dueDate, column: targetColumn})
     });
 }
 
@@ -80,6 +81,7 @@ addBtn.addEventListener('click', () => {
     const quickTitle = document.getElementById('taskInput').value;
     document.getElementById('titleInput').value = quickTitle;
     modalOverlay.style.display = 'flex';
+    targetColumn = 'todo';
 });
 
 taskForm.addEventListener('submit', async (event) => {
@@ -128,6 +130,7 @@ cancelBtn.addEventListener('click', () => {
 
     });    
     addToColumnBtn.addEventListener('click', () => {
+        targetColumn = column;
         modalOverlay.style.display = 'flex';
         dropdown.classList.add('hidden');
     });

@@ -1,14 +1,5 @@
 {
   "todo": [],
-  "inprogress": [
-    {
-      "id": 1775012519753,
-      "title": "asdf",
-      "description": "asdf",
-      "priority": "medium",
-      "dueDate": "",
-      "column": "inprogress"
-    }
-  ],
+  "inprogress": [],
   "done": []
 }
