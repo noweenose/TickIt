@@ -1,14 +1,5 @@
 {
   "todo": [],
-  "inprogress": [
-    {
-      "id": 1775020352422,
-      "title": "Today",
-      "description": "today",
-      "priority": "high",
-      "dueDate": "2026-04-01",
-      "column": "inprogress"
-    }
-  ],
+  "inprogress": [],
   "done": []
 }

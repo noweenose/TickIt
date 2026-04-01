@@ -158,7 +158,10 @@ cancelBtn.addEventListener('click', () => {
     });  
 
     addToColumnBtn.addEventListener('click', () => {
+        editingTaskId = null;
         targetColumn = column;
+        document.querySelector('#modal h2').textContent = 'Add Task';
+        document.querySelector('#modal [type="submit"]').textContent = 'Add Task';
         modalOverlay.style.display = 'flex';
         dropdown.classList.add('hidden');
     });
