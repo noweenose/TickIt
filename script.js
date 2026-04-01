@@ -27,10 +27,11 @@ async function addTask(){
 
 function renderTasks(data){
     const columnTitles = { todo: 'To do', inprogress: 'In Progress', done: 'Done' };
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     for (const column in data){ 
         const container = document.querySelector(`#${column} .cards-container`)
         container.innerHTML = '';
-
         if (data[column].length === 0) {
         const empty = document.createElement('p');
         empty.textContent = 'No tasks yet';
@@ -41,7 +42,10 @@ function renderTasks(data){
         document.querySelector(`#${column} h2`).textContent = `${columnTitles[column]} (${count})`; 
         for(const task of data[column]){
             const card = document.createElement('div');
-            const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
+            const due = new Date(task.dueDate);
+            due.setHours(0, 0, 0, 0);
+            const isOverdue = task.dueDate && due < today;
+            const isDueToday = task.dueDate && due.getTime() === today.getTime();
             card.innerHTML = `
                 <div class="card-header">
                     <h3>${task.title}</h3>
@@ -55,7 +59,10 @@ function renderTasks(data){
                     </div>
                 <p>${task.description}</p>
                 <span class="badge badge-${task.priority}">${task.priority}</span> 
-                <p>Due: <span style="color: ${isOverdue ? 'red' : 'inherit'}">${task.dueDate || 'No date'}</span> ${isOverdue ? '<span class="badge" style="background-color:#ffebee; color:red">Overdue</span>' : ''}</p> 
+                <p>Due: <span style="color: ${isOverdue ? 'red' : isDueToday ? 'orange' : 'inherit'}">${task.dueDate || 'No date'}</span> 
+                ${isOverdue ? '<span class="badge" style="background-color:#ffebee; color:red">Overdue</span>' : ''}
+                ${isDueToday ? '<span class="badge" style="background-color:#fff3e0; color:orange">Due Today</span>' : ''}
+                </p>
             `;
             if (task.dueDate) {
                 const today = new Date();
