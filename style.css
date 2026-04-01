@@ -94,6 +94,26 @@ body.dark #taskInput::placeholder {
     color: #768390;
 }
 
+body.dark #modal {
+    background-color: #161b22;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+}
+
+body.dark #modal input,
+body.dark #modal textarea,
+body.dark #modal select {
+    background-color: #21262d;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+}
+
+body.dark #modal input::placeholder,
+body.dark #modal textarea::placeholder {
+    color: #768390;
+}
+
+
 header {
     background-color: white;
     padding: 20px;
